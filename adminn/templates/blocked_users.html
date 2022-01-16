@@ -1,0 +1,73 @@
+{% extends 'includes/master.html' %}
+{% block body %}
+{% load static %}
+
+<div class="page-title">
+    <div class="row">
+        <div class="col-6">
+            <h3>Blocked Users</h3>
+        </div>
+    </div>
+</div>
+{% if messages %}
+{% for message in messages %}
+    <div id="alertDiv" class="alert {% if message.tags %}alert-{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}danger{% else %}{{ message.tags }}{% endif %}{% endif %}" role="alert">{{ message }}</div>
+{% endfor %}
+{% endif %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="display" id="basic-1">
+                            <thead>
+                                <tr>
+                                    <td>Sr</td>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Gender</th>
+                                    <th>Batch</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for user in users  %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ user.name }}</td>
+                                    <td>{{ user.email }}</td>
+                                    <td>{{ user.gender }}</td>
+                                    {% if user.pro == 1 %}
+                                    <td><span class="badge badge-primary">Pro</span></td>
+                                    {% endif %}
+                                    {% if user.pro == 0 %}
+                                    <td><span class="badge badge-dark">Free</span></td>
+                                    {% endif %}
+                                    <td>
+                                        <a href="{% url 'user_detail' pk=user.id %}"  class="btn btn-outline-primary btn-sm waves-effect waves-light"><i class="fa fa-info" ></i></a>
+                                        <a href="{% url 'user_active' pk=user.id %}" class="btn btn-outline-success btn-sm waves-effect waves-light"><i class="fa fa-check" ></i></a>
+                                        <a href="{% url 'user_block_delete' pk=user.id %}" class="btn btn-outline-danger btn-sm waves-effect waves-light"><i class="fa fa-user-times fa-md" ></i></a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+{% block js %}
+
+    <script src="{% static '/js/datatable/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static '/js/datatable/datatables/datatable.custom.js' %}"></script>
+    <script type="text/javascript">
+        $(document).ready( function() {
+            $('#alertDiv').delay(3000).slideUp(1200);
+        });
+    </script>
+{% endblock %}

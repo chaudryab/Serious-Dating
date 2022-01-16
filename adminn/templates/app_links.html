@@ -1,0 +1,116 @@
+{% extends 'includes/master.html' %}
+{% block body %}
+{% load static %}
+
+<div class="page-title">
+    <div class="row">
+        <div class="col-6">
+            <h3>App Links</h3>
+        </div>
+    </div>
+</div>
+{% if messages %}
+{% for message in messages %}
+    <div id="alertDiv" class="alert {% if message.tags %}alert-{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}danger{% else %}{{ message.tags }}{% endif %}{% endif %}" role="alert">{{ message }}</div>
+{% endfor %}
+{% endif %}
+<div class="col-lg-12">
+    <div class="row">
+      <div class="col-xl-12 col-md-12">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="card">
+              <div class="card-body">
+                <div class="media">
+                  <div class="media-body">
+                    <table class="table">
+                      <tr>
+                        <td> <i class="fa fa-android fa-2x mb-2"></i> </td>
+                        <td> <h6 class="f-w-600" style="width: 100px;" >Android</h6> </td>
+                        <td> <p style="width: 500px;">{{app_links.android}}</p></td>
+                        <td >
+                          <button class="btn btn-primary"  style="float: right;" type="button" data-bs-toggle="modal" data-bs-target="#androidmodal"><i class="fa fa-edit fa-lg"></i></button>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-12">
+            <div class="card">
+              <div class="card-body">
+                <div class="media">
+                  <div class="media-body">
+                    <table class="table">
+                      <tr>
+                        <td> <i class="fa fa-apple fa-2x mb-2"></i> </td>
+                        <td> <h6 class="f-w-600" style="width: 100px;">IOS</h6> </td>
+                        <td> <p style="width: 500px;">{{app_links.ios}}</p></td>
+                        <td>
+                          <button class="btn btn-primary" style="float: right;" type="button" data-bs-toggle="modal" data-bs-target="#iosmodal"><i class="fa fa-edit fa-lg"></i></button>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="modal fade" id="iosmodal" tabindex="-1" role="dialog" aria-labelledby="iosmodal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Update IOS App Link</h5>
+          <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form method="post" action="update_link_ios">
+          {% csrf_token %}
+          <div class="modal-body">
+            <p>Please paste the <b>APP STORE</b> link in the below field to update</p>
+            <input type="url" value="{{app_links.ios}}" class="form-control" name="ios_link" required/>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
+            <button class="btn btn-primary" type="submit">Update</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="androidmodal" tabindex="-1" role="dialog" aria-labelledby="androidmodal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Update Android App Link</h5>
+          <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form method="post" action="update_link_android">
+          {% csrf_token %}
+          <div class="modal-body">
+            <p>Please paste the <b>GOOGLE PLAY STORE</b> link in the below field to update</p>
+            <input type="url" value="{{app_links.android}}" class="form-control" name="android_link" required/>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
+            <button class="btn btn-primary" type="submit">Update</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+{% block js %}
+<script type="text/javascript">
+  $(document).ready( function() {
+      $('#alertDiv').delay(3000).slideUp(1200);
+  });
+</script>
+{% endblock %}

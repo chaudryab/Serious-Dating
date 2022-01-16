@@ -1,0 +1,54 @@
+{% extends 'includes/master.html' %}
+{% block body %}
+{% load static %}
+
+<div class="page-title">
+    <div class="row">
+        <div class="col-6">
+            <h3>View All Gifts</h3>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="display" id="basic-1">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Position</th>
+                                    <th>Office</th>
+                                    <th>Age</th>
+                                    <th>Start date</th>
+                                    <th>Salary</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Tiger Nixon</td>
+                                    <td>System Architect</td>
+                                    <td>Edinburgh</td>
+                                    <td>61</td>
+                                    <td>2011/04/25</td>
+                                    <td>$320,800</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+{% block js %}
+
+    <script src="{% static '/js/datatable/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static '/js/datatable/datatables/datatable.custom.js' %}"></script>
+
+{% endblock %}

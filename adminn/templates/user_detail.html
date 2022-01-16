@@ -1,0 +1,877 @@
+{% extends 'includes/master.html' %}
+{% block css %} 
+<!-- <style>
+    @media only screen and (max-width: 767.98px)
+    {
+      /* .tabs-scoial.border-tab.nav-tabs {
+         display: -webkit-box; 
+        display: -ms-flexbox;
+         display: flex; 
+       }  */
+       #top-tab {
+           overflow-x:auto ;
+           overflow-y: hidden ;
+           padding-left: 20px;
+       }
+    }
+  </style> -->
+
+{% endblock %}
+
+{% block body %}
+{% load static %}
+<div class="page-title">
+    <div class="row">
+        <div class="col-6">
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid mt-5">
+    <div class="user-profile social-app-profile">
+        <div class="row ">
+            <div class="col-sm-12 box-col-12">
+                <div class="card hovercard text-center">
+                    {% for user in users %}
+                    <div class="user-image">
+                        <div class="avatar"><img alt="" src="{{ user.profile.image.url }}"></div>
+                        {% if user.pro == 1 %}
+                        <div class="icon-wrapper bg-primary">Pro</div>
+                        {% endif %}
+                        {% if user.pro == 0 %}
+                        <div class="icon-wrapper bg-dark">Free</div>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                    <div class="info market-tabs p-0 ">
+                        <ul class="nav nav-tabs border-tab tabs-scoial"
+                            id="top-tab" role="tablist">
+                            <li class="nav-item"><a class="nav-link active"
+                                id="top-general" data-bs-toggle="tab"
+                                href="#general" role="tab"
+                                aria-controls="general"
+                                aria-selected="true">General</a></li>
+                            <li class="nav-item"><a class="nav-link"
+                                id="top-subscription" data-bs-toggle="tab"
+                                href="#subscription" role="tab"
+                                aria-controls="subscription"
+                                aria-selected="false">Subscription</a></li>
+                            <li class="nav-item" style="display: none;"><a class="nav-link"
+                                id="top-#" data-bs-toggle="tab"
+                                href="#" role="tab"
+                                aria-controls="#"
+                                aria-selected="false"></a></li>
+                            <li class="nav-item"><a class="nav-link"
+                                id="top-details" data-bs-toggle="tab"
+                                href="#details" role="tab"
+                                aria-controls="details" aria-selected="false">Details</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>   
+
+        <div class="tab-content" id="top-tabContent">
+
+            <div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="general">
+                <div class="container-fluid">
+                    <div class="card">
+                        <div class="card-header">
+                        <h4 class="card-title mb-0">Profile</h4>
+                        <div class="card-options"><a class="card-options-collapse" href="#" data-bs-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a><a class="card-options-remove" href="#" data-bs-toggle="card-remove"><i class="fe fe-x"></i></a></div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                {% for user in users %}
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                    <h6 class="mb-0">Name</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        {{ user.name }}
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                    <h6 class="mb-0">Email</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        {{ user.email }}
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                    <h6 class="mb-0">Phone Number</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        {{ user.profile.phone }}
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                    <h6 class="mb-0">Gender</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        {{ user.gender }}
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                    <h6 class="mb-0">Age</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        {{ user.profile.age }}
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                    <h6 class="mb-0">Date of birth</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        {{ user.dob }}
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                    <h6 class="mb-0">Education</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                    <p class="col-sm-9 text-secondary"> {{ user.profile.education }}</p>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                    <h6 class="mb-0">Marital Status</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                    <p class="col-sm-9 text-secondary"> {{ user.profile.marital_status }}</p>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                    <h6 class="mb-0">Height</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                    <p class="col-sm-9 text-secondary"> {{ user.profile.height }}</p>
+                                    </div>
+                                </div>
+                                <hr>
+                                {% if user.profile.smoke == 1 %}
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                    <h6 class="mb-0">Smoke</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                    <p class="col-sm-9 text-secondary"> Yes </p>
+                                    </div>
+                                </div>
+                                <hr>
+                                {% else %}
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                    <h6 class="mb-0">Smoke</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                    <p class="col-sm-9 text-secondary"> No </p>
+                                    </div>
+                                </div>
+                                <hr>
+                                {% endif %}
+                                {% if user.profile.drink == 1 %}
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                    <h6 class="mb-0">Drink</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                    <p class="col-sm-9 text-secondary"> Yes </p>
+                                    </div>
+                                </div>
+                                <hr>
+                                {% else %}
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                    <h6 class="mb-0">Drink</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                    <p class="col-sm-9 text-secondary"> No </p>
+                                    </div>
+                                </div>
+                                <hr>
+                                {% endif %}
+                                {% if user.profile.children == 1 %}
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                    <h6 class="mb-0">Children</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                    <p class="col-sm-9 text-secondary"> Yes </p>
+                                    </div>
+                                </div>
+                                <hr>
+                                {% else %}
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                    <h6 class="mb-0">Children</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                    <p class="col-sm-9 text-secondary"> No </p>
+                                    </div>
+                                </div>
+                                <hr>
+                                {% endif %}
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                    <h6 class="mb-0">Bio</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                    <p class="col-sm-9 text-secondary"> {{ user.profile.bio }}</p>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                    <h6 class="mb-0">Address</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        {{ user.profile.address }}
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                    <h6 class="mb-0">Country</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        {{ user.profile.country }}
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                    <h6 class="mb-0">Member Since</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        {{ user.created_at }}
+                                    </div>
+                                </div>
+                                <hr>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Statistics</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-6 col-xl-4 col-lg-6">
+                                    <div class="card o-hidden">
+                                        <div class="bg-primary b-r-4 card-body" style="height: 150px;">
+                                        <div class="media static-top-widget">
+                                            <div class="align-self-center text-center"><i data-feather="thumbs-up"></i></div>
+                                            <div class="media-body"><span class="m-0">Likes Recieved</span>
+                                            <h4 class="mb-0 counter">{{ likes_recieved }}</h4><i class="icon-bg" data-feather="thumbs-up"></i>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                <div class="col-sm-6 col-xl-4 col-lg-6">
+                                <div class="card o-hidden">
+                                    <div class="bg-primary b-r-4 card-body" style="height: 150px;">
+                                    <div class="media static-top-widget">
+                                        <div class="align-self-center text-center"><i data-feather="thumbs-up"></i></div>
+                                        <div class="media-body"><span class="m-0">Likes Send</span>
+                                        <h4 class="mb-0 counter">{{ likes_send }}</h4><i class="icon-bg" data-feather="thumbs-up"></i>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="col-sm-6 col-xl-4 col-lg-6">
+                                <div class="card o-hidden">
+                                    <div class="bg-secondary b-r-4 card-body" style="height: 150px;">
+                                    <div class="media static-top-widget">
+                                        <div class="align-self-center text-center"><i data-feather="heart"></i></div>
+                                        <div class="media-body"><span class="m-0">Matchings</span>
+                                        <h4 class="mb-0 counter">{{ t_matchings }}</h4><i class="icon-bg" data-feather="heart"></i>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="col-sm-6 col-xl-4 col-lg-6">
+                                <div class="card o-hidden">
+                                    <div class="bg-success b-r-4 card-body" style="height: 150px;">
+                                    <div class="media static-top-widget">
+                                        <div class="align-self-center text-center"><i data-feather="users"></i></div>
+                                        <div class="media-body"><span class="m-0">Meetings</span>
+                                        <h4 class="mb-0 counter">{{ t_meetings }}</h4><i class="icon-bg" data-feather="users"></i>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="col-sm-6 col-xl-4 col-lg-6">
+                                <div class="card o-hidden">
+                                    <div class="bg-dark b-r-4 card-body" style="height: 150px;">
+                                    <div class="media static-top-widget">
+                                        <div class="align-self-center text-center"><i data-feather="dollar-sign"></i></div>
+                                        <div class="media-body"><span class="m-0">Spend Money</span>
+                                        <h4 class="mb-0 counter">{{ spend_money }}</h4><i class="icon-bg" data-feather="dollar-sign"></i>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="col-sm-6 col-xl-4 col-lg-6">
+                                <div class="card o-hidden">
+                                    <div class="bg-danger b-r-4 card-body" style="height: 150px;">
+                                    <div class="media static-top-widget">
+                                        <div class="align-self-center text-center"><i data-feather="alert-circle"></i></div>
+                                        <div class="media-body"><span class="m-0">Reports</span>
+                                        <h4 class="mb-0 counter">{{ t_reports }}</h4><i class="icon-bg" data-feather="alert-circle"></i>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="tab-pane fade" id="subscription" role="tabpanel"
+                aria-labelledby="subscription">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="card">
+                            <div class="card-header">
+                            <h4 class="card-title mb-0">Subscription</h4>
+                            <div class="card-options"><a class="card-options-collapse" href="#" data-bs-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a><a class="card-options-remove" href="#" data-bs-toggle="card-remove"><i class="fe fe-x"></i></a></div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                {% for user in users %}
+                                {% if user.pro == 0 %}
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                    <h6 class="mb-0">Subscription</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                    Free
+                                    </div>
+                                </div>
+                                <hr>
+                                {% endif %}
+                                {% endfor %}
+                                {% for user in subscription %}
+                                {% if user.user.pro == 1 %}
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                    <h6 class="mb-0">Subscription</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                    Pro
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                    <h6 class="mb-0">Package Name</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        {{ user.package.name }}
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                    <h6 class="mb-0">Price</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        {{ user.package.amount }}
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                    <h6 class="mb-0">Duration</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        {{ user.package.duration_in_days }} days
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                    <h6 class="mb-0">Status</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                    Active
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                    <h6 class="mb-0">Purshacing Date</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        {{ user.from_date }}
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                    <h6 class="mb-0">Expire Date</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        {{ user.to_date }}
+                                    </div>
+                                </div>
+                                <hr>
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-12">
+                            <div class="card">
+                            <div class="card-header">
+                            <h4 class="card-title mb-0">History</h4>
+                            <div class="card-options"><a class="card-options-collapse" href="#" data-bs-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a><a class="card-options-remove" href="#" data-bs-toggle="card-remove"><i class="fe fe-x"></i></a></div>
+                            </div>
+                            <div class="card-body">
+                            <div class="row">
+                                
+                                <div class="row default-according style-1 faq-accordion" id="accordionoc">
+                                    <div class="card">
+                                        {% for user in subscription %}
+                                        {% if user.is_valid != 0 %}
+                                        <div class="row">
+                                            <div class="col-sm-9 text-secondary">
+                                                No History
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        {% endif %}
+                                        {% endfor %}
+                                        {% for user in subscription %}
+                                        {% if user.is_valid == 0 %}
+                                        <div class="card-header">
+                                        <h5 class="mb-0">
+                                            <button class="btn btn-link collapsed ps-0" data-bs-toggle="collapse" data-bs-target="#collapseicon" aria-expanded="false" aria-controls="collapseicon"><i data-feather="help-circle"></i>   {{ user.package.name }} </button>
+                                        </h5>
+                                        </div>
+                                        <div class="collapse" id="collapseicon" aria-labelledby="collapseicon" data-bs-parent="#accordionoc">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                <h6 class="mb-0">Package Name</h6>
+                                                </div>
+                                                <div class="col-sm-9 text-secondary">
+                                                    {{ user.package.name }}
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                <h6 class="mb-0">Price</h6>
+                                                </div>
+                                                <div class="col-sm-9 text-secondary">
+                                                    {{ user.package.amount }}
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                <h6 class="mb-0">Duration</h6>
+                                                </div>
+                                                <div class="col-sm-9 text-secondary">
+                                                    {{ user.package.duration_in_days }} days
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                <h6 class="mb-0">Status</h6>
+                                                </div>
+                                                <div class="col-sm-9 text-secondary">
+                                                Expire
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                <h6 class="mb-0">Purshacing Date</h6>
+                                                </div>
+                                                <div class="col-sm-9 text-secondary">
+                                                    {{ user.from_date }}
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                <h6 class="mb-0">Expire Date</h6>
+                                                </div>
+                                                <div class="col-sm-9 text-secondary">
+                                                    {{ user.to_date }}
+                                                </div>
+                                            </div>
+                                            <hr>
+                                        </div>
+                                        </div>
+                                        {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="tab-pane fade" id="details" role="tabpanel" aria-labelledby="details">
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title mb-0">Matchings</h4>
+                        </div>
+                        <div class="card-body">
+                             <div class="row"> 
+                                <div class="row default-according style-1 faq-accordion" id="accordionoc">
+                                    <div class="card">
+                                        <div class="card-header">
+                                        <h5 class="mb-0">
+                                            <button class="btn btn-link collapsed ps-0" data-bs-toggle="collapse" data-bs-target="#collapseicon" aria-expanded="false" aria-controls="collapseicon"><i data-feather="help-circle"></i> Likes Users </button>
+                                        </h5>
+                                        </div>
+                                        <div class="collapse" id="collapseicon" aria-labelledby="collapseicon" data-bs-parent="#accordionoc">
+                                        <div class="card-body">
+                                            <div class="table-responsive">
+                                                <table class="display" id="basic-122" style="border: none !important;">
+                                                <thead>
+                                                    <tr style="display: none;">
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for user in matching %}
+                                                    <tr style="background-color: #ffffff !important;">
+                                                    <td class="d-flex">
+                                                            <div class="media-body mt-2"><span class="f-w-600 d-block">{{ user.match.name }}</span></div>
+                                                    </td>
+                                                    <td>
+                                                        {{ user.match.gender }}
+                                                    </td>
+                                                    <td>
+                                                        {{ user.match.email }}
+                                                    </td>
+                                                    <td>
+                                                        {{ user.created_at }}
+                                                    </td>
+                                                    {% if user.liked_by_user2 == 0 %}
+                                                    <td>
+                                                        Pending
+                                                    </td>
+                                                    {% endif %}
+                                                    {% if user.liked_by_user1 == 1 and user.liked_by_user2 == 1 %}
+                                                    <td>
+                                                        Match
+                                                    </td>
+                                                    {% endif %}
+                                                    <td>
+                                                        <a href="{% url 'user_detail' pk=user.match_id %}"  class="btn btn-outline-primary btn-sm waves-effect waves-light"><i class="fa fa-info" ></i></a>
+                                                    </td>
+                                                </tr>
+                                                {% endfor %}
+                                                </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+                            
+                            <div class="row">
+                                <div class="row default-according style-1 faq-accordion" id="accordionoc1">
+                                    <div class="card">
+                                        <div class="card-header">
+                                        <h5 class="mb-0">
+                                            <button class="btn btn-link collapsed ps-0" data-bs-toggle="collapse" data-bs-target="#collapseicon1" aria-expanded="false" aria-controls="collapseicon1"><i data-feather="help-circle"></i> Liked By Users </button>
+                                        </h5>
+                                        </div>
+                                        <div class="collapse" id="collapseicon1" aria-labelledby="collapseicon1" data-bs-parent="#accordionoc1">
+                                        <div class="card-body">
+                                            <div class="table-responsive">
+                                                <table class="display" id="basic-111" style="border: none !important;">
+                                                <thead>
+                                                    <tr style="display: none;">
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for user in matched %}
+                                                    <tr style="background-color: #ffffff !important;">
+                                                        <td class="d-flex">
+                                                                <div class="media-body mt-2"><span class="f-w-600 d-block">{{ user.user.name }}</span></div>
+                                                        </td>
+                                                        <td>
+                                                            {{ user.user.gender }}
+                                                        </td>
+                                                        <td>
+                                                            {{ user.user.email }}
+                                                        </td>
+                                                        <td>
+                                                            {{ user.created_at }}
+                                                        </td>
+                                                        <td>
+                                                            <a href="{% url 'user_detail' pk=user.user_id %}"  class="btn btn-outline-primary btn-sm waves-effect waves-light"><i class="fa fa-info" ></i></a>
+                                                        </td>
+                                                </tr>
+                                                {% endfor %}
+                                                </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title mb-0">Meetings</h4>
+                        </div>
+                        <div class="card-body">
+                             <div class="row"> 
+                                <div class="row default-according style-1 faq-accordion" id="accordionoc4">
+                                    <div class="card">
+                                        <div class="card-header">
+                                        <h5 class="mb-0">
+                                            <button class="btn btn-link collapsed ps-0" data-bs-toggle="collapse" data-bs-target="#collapseicon4" aria-expanded="false" aria-controls="collapseicon"><i data-feather="help-circle"></i> Meetings </button>
+                                        </h5>
+                                        </div>
+                                        <div class="collapse" id="collapseicon4" aria-labelledby="collapseicon4" data-bs-parent="#accordionoc4">
+                                            <div class="card-body">
+                                                <div class="table-responsive">
+                                                    <table class="display" id="basic-3"  style="border: none !important;">
+                                                    <thead>
+                                                        <tr style="display: none;">
+                                                            <th></th>
+                                                            <th></th>
+                                                            <th></th>
+                                                            <th></th>
+                                                            <th></th>
+                                                            <th></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {% for user in meetings %}
+                                                        <tr style="background-color: #ffffff !important;">
+                                                        <td class="d-flex">
+                                                                <div class="media-body mt-2"><span class="f-w-600 d-block">{{ user.user.name }}</span></div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            {{ user.user.gender }}
+                                                        </td>
+                                                        <td>
+                                                            {{ user.user.email }}
+                                                        </td>
+                                                        <td>
+                                                            {{ user.time }}
+                                                        </td>
+                                                        <td>
+                                                            {{ user.date }}
+                                                        </td>
+                                                        <td>
+                                                            <a href="{% url 'map' pk=user.id %}"  class="btn btn-outline-primary btn-sm waves-effect waves-light" target="_blank"><i class="fa fa-map-marker" ></i></a>
+                                                            <a href="{% url 'user_detail' pk=user.user.id %}"  class="btn btn-outline-primary btn-sm waves-effect waves-light"><i class="fa fa-info" ></i></a>
+                                                        </td>
+                                                    </tr>
+                                                    {% endfor %}
+                                                    </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title mb-0">Reports & Block</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="row default-according style-1 faq-accordion" id="accordionoc2">
+                                    <div class="card">
+                                        <div class="card-header">
+                                        <h5 class="mb-0">
+                                            <button class="btn btn-link collapsed ps-0" data-bs-toggle="collapse" data-bs-target="#collapseicon2" aria-expanded="false" aria-controls="collapseicon2"><i data-feather="help-circle"></i> Reported By Users </button>
+                                        </h5>
+                                        </div>
+                                        <div class="collapse" id="collapseicon2" aria-labelledby="collapseicon2" data-bs-parent="#accordionoc2">
+                                        <div class="card-body">
+                                            <div class="table-responsive">
+                                                <table class="display" id="basic-2" style="border: none !important;">
+                                                <thead>
+                                                    <tr style="display: none;">
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for user in reports %}
+                                                    <tr style="background-color: #ffffff !important;">
+                                                    <td class="d-flex">
+                                                            <div class="media-body mt-2"><span class="f-w-600 d-block">{{ user.reported_user.name }}</span></div>
+                                                    </td>
+                                                    <td>
+                                                        {{ user.reported_user.gender }}</td>
+                                                    <td>
+                                                        {{ user.reported_user.email }}</td>
+                                                    <td>
+                                                        {{ user.message |slice:"0:10" }} {% if user.message|length > 10 %} ... {% endif %} </td>
+                                                    <td>
+                                                        {{ user.reported_user.created_at }}</td>
+                                                    <td>
+                                                        <a class="btn btn-outline-primary btn-sm waves-effect waves-light model" style="width: 65px;" data-bs-toggle="modal" data-bs-target="#model" data-id="{{ user.id }}"  data-message="{{ user.message }}"  ><i class="fa fa-comment" ></i></a>
+                                                        <a href="{% url 'user_detail' pk=user.reported_user_id %}"  class="btn btn-outline-primary btn-sm waves-effect waves-light"  style="width: 65px;"><i class="fa fa-info" ></i></a>
+                                                    </td>
+                                                </tr>
+                                                {% endfor %}
+                                                </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="row default-according style-1 faq-accordion" id="accordionoc3">
+                                    <div class="card">
+                                        <div class="card-header">
+                                        <h5 class="mb-0">
+                                            <button class="btn btn-link collapsed ps-0" data-bs-toggle="collapse" data-bs-target="#collapseicon3" aria-expanded="false" aria-controls="collapseicon3"><i data-feather="help-circle"></i> Block Users </button>
+                                        </h5>
+                                        </div>
+                                        <div class="collapse" id="collapseicon3" aria-labelledby="collapseicon3" data-bs-parent="#accordionoc3">
+                                        <div class="card-body">
+                                            <div class="table-responsive">
+                                                <table class="display" id="basic-1" style="border: none !important;">
+                                                <thead>
+                                                    <tr style="display: none;">
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for user in block_users %}
+                                                    <tr style="background-color: #ffffff !important;">
+                                                    <td class="d-flex">
+                                                            <div class="media-body mt-2"><span class="f-w-600 d-block">{{ user.blocked_user.name }}</span></div>
+                                                    </td>
+                                                    <td>
+                                                        {{ user.blocked_user.gender }}</td>
+                                                    <td>
+                                                        {{ user.blocked_user.email }}
+                                                    </td>
+                                                    <td>
+                                                        {{ user.blocked_user.created_at }}</td>
+                                                    <td>
+                                                        <a href="{% url 'user_detail' pk=user.blocked_user_id %}"  class="btn btn-outline-primary btn-sm waves-effect waves-light"><i class="fa fa-info" ></i></a>
+                                                    </td>
+
+                                                    </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div> 
+        </div>
+    </div>
+</div>
+
+<div class="modal fade " id="model" tabindex="-1" role="dialog" aria-labelledby="iosmodal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Complain</h5>
+          <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+          <div class="modal-body">
+            <p id="report_message_view"></p>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
+          </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
+{% block js %}
+<script>
+    $(document).on("click", ".model", function () {
+       var id = $(this).data('id');
+       var message = $(this).data('message');
+       var text = `<p><span class="fw-bold">Complain: </span>${message}</p>`
+       $("#report_message_view").html(text);
+  });
+  </script>
+<script src="{% static '/js/datatable/datatables/jquery.dataTables.min.js' %}"></script>
+<script src="{% static '/js/datatable/datatables/datatable.custom.js' %}"></script>
+<script src="{% static '/js/tooltip-init.js' %}"></script>
+{% endblock %}

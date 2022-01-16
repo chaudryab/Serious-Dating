@@ -1,0 +1,52 @@
+{% extends 'includes/master.html' %}
+{% block body %}
+{% load static %}
+
+<div class="page-title">
+    <div class="row">
+        <div class="col-6">
+            <h3>View All Subscription Packages</h3>
+        </div>
+    </div>
+</div>
+    {% if messages %}
+    {% for message in messages %}
+        <div id="alertDiv" class="alert {% if message.tags %}alert-{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}danger{% else %}{{ message.tags }}{% endif %}{% endif %}" role="alert">{{ message }}</div>
+    {% endfor %}
+    {% endif %}
+  {% if packages %}
+  <div class="card-body row pricing-block">
+    {% for package in packages %}
+    <div class="col-lg-3 col-md-6">
+      <div class="pricingtable">
+        <div class="pricingtable-header">
+          <h3 class="title">{{package.name}}</h3>
+        </div>
+        <div class="price-value " ><span class="currency ">$</span><h5>{{package.amount}}</h5></div>
+        <ul class="pricing-content">
+          <li>{{package.duration_in_days}} Days</li>
+        </ul>
+        <div class="pricingtable-signup"><a class="btn btn-success btn-lg w-50" href="{% url 'edit_subscription' pk=package.id %}">Edit</a></div>
+        <div class="pricingtable-signup"><a class="btn btn-danger btn-lg mt-1 w-50" href="{% url 'delete_subscription' pk=package.id %}">Delete</a></div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="row">
+      <div class="col-sm-9 text-secondary">
+          No Subscriptios Available
+      </div>
+  </div>
+  <hr>
+  {% endif %}
+
+{% endblock %}
+{% block js %}
+<script type="text/javascript">
+    $(document).ready( function() {
+        $('#alertDiv').delay(3000).slideUp(1200);
+    });
+</script>
+    
+{% endblock %}

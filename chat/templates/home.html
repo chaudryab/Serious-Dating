@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Home</h1>
+
+
+    <script>
+        // const socket = new WebSocket('ws://http://127.0.0.1:8000/ws/');
+
+        // // Connection opened
+        // socket.addEventListener('open', function (event) {
+        //     socket.send('Hello Server!');
+        // });
+
+        // // Listen for messages
+        // socket.addEventListener('message', function (event) {
+        //     console.log('Message from server ', event.data);
+        // });
+
+        lo = new WebSocket(
+            "ws://"
+            +window.location.host
+            +"/ws/chat/"
+            );
+        lo.onmessage = (data) => console.log(data);
+        lo.onclose = function(e){
+            console.log("chat closed!");
+        }
+        // lo.onopen = () => {
+        //     console.log("sending city");
+        //     lo.send(JSON.stringify({"game_city": 1}));
+        // }
+    </script>
+</body>
+</html>

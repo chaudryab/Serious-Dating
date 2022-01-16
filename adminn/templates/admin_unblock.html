@@ -1,0 +1,109 @@
+{% extends 'includes/master.html' %}
+{% block css %}
+  <!-- ++++++++++++++++++++ boostrap cdn ++++++++++++++++++++++++ -->
+  <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+  integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+<style>
+    #cke_id_body {
+        width: inherit !important;
+    }
+    .htmleditor p {
+        font-weight: 900;
+        font-size: 20px;
+    }
+    .texteditor p label {
+        font-weight: 800;
+        font-size: 18px;
+    }
+    #htmldata {
+        font-weight: 600;
+    }
+</style>
+{% endblock %}
+{% block body %}
+{% load static %}
+
+<div class="page-title">
+    <div class="row">
+        <div class="col-9">
+            <h3>Auto Generate Message</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-9"></div>
+        <div class="col-sm-3 align-items-end btn-group">
+            <button class="btn btn-success dropdown-toggle float-end" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+              Admin Unblock
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li><a class="dropdown-item" href="{% url 'welcome' %}">Welcome</a></li>
+              <li><a class="dropdown-item" href="{% url 'matching' %}">Matching</a></li>
+              <li><a class="dropdown-item" href="{% url 'admin_user_block' %}">User Block</a></li>
+              <li><a class="dropdown-item" href="{% url 'admin_block' %}">Admin Block</a></li>
+              <li><a class="dropdown-item" href="{% url 'admin_unblock' %}">Admin Unblock</a></li>
+              <li><a class="dropdown-item" href="{% url 'admin_user_delete' %}">User Delete</a></li>
+            </ul>
+          </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-body">
+                    {% csrf_token %}                        
+                    {% if messages %}
+                    {% for message in messages %}
+                        <div id="alertDiv" class="alert {% if message.tags %}alert-{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}danger{% else %}{{ message.tags }}{% endif %}{% endif %}" role="alert">{{ message }}</div>
+                    {% endfor %}
+                    {% endif %}
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+                                <div class="texteditor">
+                                    {{form.media}}
+                                    {{form.as_p}}
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+                                <div class="htmleditor">
+                                    <p>Admin Unblock User Message</p>
+                                    <div class="form-group">
+                                        <textarea class="form-control " rows="17">{{ admin_unblock | safe }}</textarea>
+                                    </div>
+                                </div>
+                                <div class="text-end mt-3">
+                                    <button class="btn btn-primary" type="submit"  onclick="TextConvert()" >Update</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <form id="myForm" action="admin_unblock" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" id="Text" name="text" value="">
+                  </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+{% block js %}
+<script type="text/javascript">
+    $(document).ready( function() {
+        $('#alertDiv').delay(3000).slideUp(1200);
+    });
+</script>
+<script>
+    function TextConvert() {
+        var x = CKEDITOR.instances['id_body'].getData();
+        console.log(x)
+        document.getElementById('Text').value = x;
+        document.getElementById("myForm").submit();
+    }
+</script>
+
+
+{% endblock %}

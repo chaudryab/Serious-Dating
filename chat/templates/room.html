@@ -1,0 +1,121 @@
+<!-- chat/templates/chat/room.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Chat Room</title>
+</head>
+<body>
+    <textarea id="chat-log" cols="100" rows="20"></textarea><br>
+    <input id="chat-message-input" type="text" size="100"><br>
+    <input id="chat-message-submit" type="button" value="Send">
+    <span id="typing">typing...</span>
+    <ul class="images">
+    </ul>
+    {{ room_name|json_script:"room-name" }}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $('#typing').hide()
+        getChat()
+        function getChat(){
+            $.post("/chat/get-chat", {group_id: 1}).then((result)=> {
+                console.log(result);
+                result.chat.forEach((item)=> {
+                    if(item.image != ''){
+                        $('.images').append('<li><img src="'+item.image+'" width="100px"></li>')
+                    }
+                    // if(item.video != ''){
+                    //     $('.video').append('<li><img src="'+item.video+'" width="100px"></li>')
+                    // }
+                    document.querySelector('#chat-log').value += (`${item.message} (${item.seen?"seen": "unseen"}) \n`);
+                })
+            })
+        }
+
+        function seenMessage(chat_id){
+            chatSocket.send(JSON.stringify({
+                'data': {
+                    'chat_id': chat_id,
+                    'seen': true,
+                    'typing': false,
+                }
+            }));
+        }
+
+        function typing(){
+            var data = {
+                'user': 1,
+                'typing': true,
+                'seen': false
+            }
+            chatSocket.send(JSON.stringify(data));
+        }
+
+        const roomName = JSON.parse(document.getElementById('room-name').textContent);
+        const chatSocket = new WebSocket(
+            'ws://'
+            + window.location.host
+            + '/ws/chat/'
+            + "{{ first }}" +'/'+ "{{second}}"+'/'
+        );
+
+        chatSocket.onmessage = function(e) {
+
+            const data = JSON.parse(e.data);
+            console.log(data.data)
+            
+            if(data.data.id){
+                seenMessage(data.data.id)
+            }
+            
+            if(data.data.typing){
+                $('#typing').show()
+                setTimeout(() => {
+                    $('#typing').hide()
+                }, 1000);
+            }else if(data.data.seen){
+                console.log('message seen')
+            }
+            else{
+                document.querySelector('#chat-log').value += (`${data.data.message} (${data.data.seen?"seen": "unseen"}) \n`);
+            }
+        };
+
+        chatSocket.onclose = function(e) {
+            console.error('Chat socket closed unexpectedly');
+        };
+
+        document.querySelector('#chat-message-input').focus();
+        document.querySelector('#chat-message-input').onkeyup = function(e) {
+            typing()
+            if (e.keyCode === 13) {  // enter, return
+                document.querySelector('#chat-message-submit').click();
+            }
+        };
+
+        document.querySelector('#chat-message-submit').onclick = function(e) {
+            const messageInputDom = document.querySelector('#chat-message-input');
+            const message = messageInputDom.value;
+            var image = ''
+            data = {
+                sender: 1,
+                receiver: 2,
+                message: message,
+                image: image,
+                // video: video,
+                group: 1,
+                typing: false,
+                seen: false,
+                // images: 
+            }
+            chatSocket.send(JSON.stringify({
+                'data': data
+            }));
+            console.log('message gya')
+            messageInputDom.value = '';
+        };
+
+        
+    </script>
+</body>
+</html>
